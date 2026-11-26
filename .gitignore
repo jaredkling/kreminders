@@ -1,0 +1,31 @@
+# Binaries and build output
+/kreminders
+/cmd/kreminders/kreminders
+/dist/
+/result
+/result-*
+
+# Local databases and backups
+*.db
+*.db-wal
+*.db-shm
+/backup/
+
+# Local configuration and plaintext secrets
+.env
+.env.*
+!.env.example
+
+# Go test and coverage artefacts
+*.test
+*.out
+coverage.*
+
+# Editors and OS noise
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# direnv / nix-direnv
+.direnv/
