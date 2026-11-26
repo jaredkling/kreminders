@@ -49,8 +49,11 @@ out when there's a test worth writing.
 
 - [ ] `go run ./cmd/kreminders version` prints exactly one non-empty line
       containing the word `version` or the version string.
-- [ ] `go run ./cmd/kreminders` prints usage to **stderr** and exits 2:
-      `go run ./cmd/kreminders >/dev/null; echo $?` prints 2.
+- [ ] `go run ./cmd/kreminders` prints usage to **stderr**. Check the exit code
+      with a built binary, not `go run`:
+      `go build -o /tmp/kreminders ./cmd/kreminders && /tmp/kreminders >/dev/null; echo $?`
+      prints 2. (`go run` is a wrapper: it prints `exit status 2` itself and
+      exits 1.)
 - [ ] Same for an unknown argument.
 - [ ] `go build ./...` succeeds and `gofmt -l .` prints nothing.
 - [ ] Committed with a message that says what works, e.g.
@@ -78,6 +81,8 @@ out when there's a test worth writing.
   matters enormously in ticket 01e.
 - Forgetting that Go cares about unused imports: a compile error here is not a
   sign you're doing it wrong.
+- Checking exit codes with `go run`: it reports its own failure and exits 1, so
+  a program that exits 2 looks like 1. Build a binary when exit status matters.
 
 ## When you're stuck
 
