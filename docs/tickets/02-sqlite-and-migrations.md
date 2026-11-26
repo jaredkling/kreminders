@@ -1,6 +1,6 @@
 # Ticket 02 — SQLite and migrations
 
-**Depends on:** 01
+**Depends on:** 01e
 **Effort:** one evening
 **Read first:** [`../schema.md`](../schema.md) §1–§4, [`../design.md`](../design.md) §3
 

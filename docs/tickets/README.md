@@ -1,22 +1,29 @@
 # Implementation tickets
 
-Ten tickets that take `kreminders` from an empty `main.go` to the design in
+Ten numbered tickets (plus a primer and five slices inside ticket 01) take
+`kreminders` from an empty repository to the design in
 [`../design.md`](../design.md). They are ordered so every ticket ends in a
 state you can run, test, and be proud of. None of them contain the code — the
 point is to work it out. Where a ticket says "look up X", that is the expected
 way to make progress.
 
+Ticket 00 is a primer and ticket 01 is split into five session-sized slices
+(01a–01e). Each slice is meant to fit in one sitting; if it doesn't, stop and
+say so.
+
 ## How to use these
 
-1. Read [`../design.md`](../design.md) once, all of it. Skim
+1. Start with [`00 — Go primer`](00-go-primer.md) if any of "package, module,
+   `go test`, exit code" feels shaky. It's a read, not a task.
+2. Read [`../design.md`](../design.md) once, all of it. Skim
    [`../schema.md`](../schema.md) and keep it open while you code — it is the
    reference, not the tutorial.
-2. Do the tickets **in order**. Each has "Depends on" at the top; the only
+3. Do the tickets **in order**. Each has "Depends on" at the top; the only
    exception is ticket 06 (Gotify), which can be done any time after 04 if you
    want a break from the scheduler.
-3. Branch per ticket (`git switch -c 04-plan-math`), and commit whenever an
-   acceptance box gets ticked. Small commits, boring messages.
-4. Run the three checks before calling a ticket done:
+4. Branch per ticket (`git switch -c 04-plan-math`); within ticket 01, commit
+   per slice. Small commits, boring messages.
+5. Run the three checks before calling a ticket or slice done:
 
    ```sh
    gofmt -l .        # must print nothing
@@ -24,9 +31,9 @@ way to make progress.
    go test ./... -race -count=1
    ```
 
-5. If the implementation proves a doc wrong, fix the doc in the same commit.
+6. If the implementation proves a doc wrong, fix the doc in the same commit.
    The docs are the spec; the code is the proof.
-6. Keep a scratch `NOTES.md` (gitignored or not, your call) with "what confused
+7. Keep a scratch `NOTES.md` (gitignored or not, your call) with "what confused
    me / what I'd do differently". On a first Go project this is worth more than
    the code.
 
@@ -55,8 +62,9 @@ go get github.com/robfig/cron/v3
 
 | # | Ticket | Depends on | Go focus |
 |---|---|---|---|
-| 01 | [Bootstrap](01-bootstrap.md) | — | packages, modules, `log/slog`, `net/http`, signals, env config |
-| 02 | [SQLite and migrations](02-sqlite-and-migrations.md) | 01 | `database/sql`, `embed`, transactions, `t.TempDir` |
+| 00 | [Go primer](00-go-primer.md) | — | read-only: packages, errors, tests, the toolchain |
+| 01 | [Bootstrap](01-bootstrap.md) — slices [a](01a-hello-binary.md) [b](01b-subcommands-and-tests.md) [c](01c-configuration.md) [d](01d-http-and-healthz.md) [e](01e-logging-and-shutdown.md) | 00 | packages, tests, env config, `net/http`, `slog`, signals |
+| 02 | [SQLite and migrations](02-sqlite-and-migrations.md) | 01e | `database/sql`, `embed`, transactions, `t.TempDir` |
 | 03 | [Domain and storage](03-domain-and-storage.md) | 02 | structs, errors, `sql.Null*`, JSON in columns |
 | 04 | [Plan math](04-plan-math.md) | 03 | pure functions, `time` and DST, table-driven tests |
 | 05 | [Materialiser](05-materialiser.md) | 04 | `sql.Tx`, integration tests, injected clock |
@@ -66,9 +74,9 @@ go get github.com/robfig/cron/v3
 | 09 | [MCP server](09-mcp-server.md) | 08 | MCP SDK, generics, bearer auth |
 | 10 | [Deploy](10-deploy.md) | 09 | NixOS modules, systemd hardening, secrets |
 
-Rough effort: 01–03 are evenings; 04 and 05 are the intellectual core (two or
-three sessions each); 06–08 are steady; 09 is a new library; 10 is plumbing with
-a satisfying payoff.
+Rough effort: 01 is five short sessions (30 minutes to two hours each); 02–03
+are evenings; 04 and 05 are the intellectual core (two or three sessions each);
+06–08 are steady; 09 is a new library; 10 is plumbing with a satisfying payoff.
 
 ## Suggested package layout
 
